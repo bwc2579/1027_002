@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Morning Mindset - Automated Unit & E2E Test Suite</title>
+  <style>
+    body { font-family: monospace; background: #0F172A; color: #F8FAFC; padding: 24px; line-height: 1.5; }
+    h1 { color: #FBBF24; margin-bottom: 20px; }
+    .test-summary { margin-bottom: 20px; padding: 14px; background: #1E293B; border-radius: 8px; }
+    .pass { color: #34D399; }
+    .fail { color: #F87171; font-weight: bold; }
+    .test-case { margin: 6px 0; padding: 6px 10px; background: #182234; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <h1>🧪 Morning Mindset Test Suite ("Boil the Lake")</h1>
+  <div id="summary" class="test-summary">테스트 실행 중...</div>
+  <div id="results"></div>
+
+  <!-- Dependencies -->
+  <script src="../js/storage.js"></script>
+  <script src="../js/audio-mixer.js"></script>
+  <script src="../js/youtube-player.js"></script>
+  <script src="../js/ai-service.js"></script>
+  <script src="../js/tts-service.js"></script>
+
+  <script>
+    const resultsContainer = document.getElementById('results');
+    const summaryContainer = document.getElementById('summary');
+    let passed = 0;
+    let failed = 0;
+
+    function assert(desc, condition) {
+      const el = document.createElement('div');
+      el.className = 'test-case';
+      if (condition) {
+        passed++;
+        el.innerHTML = `<span class="pass">[PASS]</span> ${desc}`;
+      } else {
+        failed++;
+        el.innerHTML = `<span class="fail">[FAIL]</span> ${desc}`;
+      }
+      resultsContainer.appendChild(el);
+    }
+
+    async function runAllTests() {
+      // Setup isolated test storage instance
+      const testStorage = new StorageManager('test_journals', 'test_draft');
+      localStorage.removeItem('test_journals');
+      localStorage.removeItem('test_draft');
+
+      // --- Group 1: Storage CRUD & Autosave ---
+      const testDate = '2026-10-27';
+      testStorage.saveJournal(testDate, { content: '테스트 일기 내용', mood: '평온함', affirmation: '오늘도 힘차게' });
+      const saved = testStorage.getJournal(testDate);
+      assert('Storage: saveJournal & getJournal 정상 동작', saved && saved.content === '테스트 일기 내용' && saved.mood === '평온함');
+
+      testStorage.saveDraft('임시 작성 글', '활기참');
+      const draft = testStorage.getDraft();
+      assert('Storage: saveDraft & getDraft 정상 동작', draft && draft.content === '임시 작성 글');
+
+      testStorage.clearDraft();
+      assert('Storage: clearDraft 정상 동작', testStorage.getDraft() === null);
+
+      // --- Group 2: Streak Calculator ---
+      const todayStr = testStorage.getTodayDateString();
+      const yesterdayStr = testStorage.getYesterdayDateString();
+      testStorage.saveJournal(todayStr, { content: '오늘 일기', mood: '평온함' });
+      testStorage.saveJournal(yesterdayStr, { content: '어제 일기', mood: '평온함' });
+      const streakStats = testStorage.calculateStreak();
+      assert('Storage: Streak 2일 연속 달성 계산 정확도', streakStats.current >= 2);
+
+      // --- Group 3: Search Engine ---
+      const searchResKeyword = testStorage.searchJournals({ keyword: '테스트' });
+      assert('Storage: searchJournals 키워드 검색 일치 확인', searchResKeyword.length >= 1 && searchResKeyword[0].content.includes('테스트'));
+
+      const searchResMood = testStorage.searchJournals({ mood: '평온함' });
+      assert('Storage: searchJournals 감정 태그 검색 일치 확인', searchResMood.length >= 1 && searchResMood[0].mood === '평온함');
+
+      // --- Group 4: JSON Export & Import ---
+      const exported = testStorage.exportDataJSON();
+      assert('Storage: exportDataJSON 유효한 JSON 문자열 반환', typeof exported === 'string' && exported.includes('journals'));
+
+      const importStorage = new StorageManager('import_test', 'import_draft');
+      const importRes = importStorage.importDataJSON(exported);
+      assert('Storage: importDataJSON 복원 성공 및 카운트 검증', importRes.success && importRes.count >= 2);
+      localStorage.removeItem('import_test');
+      localStorage.removeItem('import_draft');
+
+      // Clean up test keys
+      localStorage.removeItem('test_journals');
+      localStorage.removeItem('test_draft');
+
+      // --- Group 5: YouTube URL Parser ---
+      const yt = window.youtubePlayer;
+      assert('YouTube: extractVideoId 표준 watch URL 파싱', yt.extractVideoId('https://www.youtube.com/watch?v=1ZYbU82GVz4') === '1ZYbU82GVz4');
+      assert('YouTube: extractVideoId 단축 URL (youtu.be) 파싱', yt.extractVideoId('https://youtu.be/1ZYbU82GVz4') === '1ZYbU82GVz4');
+      assert('YouTube: extractVideoId 순수 11자리 ID 통과', yt.extractVideoId('1ZYbU82GVz4') === '1ZYbU82GVz4');
+      assert('YouTube: 큐레이션 리스트 4개 이상 포함 확인', yt.getCuratedPlaylist().length >= 4);
+
+      // --- Group 6: Audio Mixer & Synth Node Logic ---
+      const mixer = window.ambientMixer;
+      assert('AudioMixer: 인스턴스 정상 로드 및 볼륨 기본값 확인', mixer.sounds.rain.volume === 0.4);
+      mixer.setVolume('rain', 0.8);
+      assert('AudioMixer: 볼륨 변경 적용 확인', mixer.sounds.rain.volume === 0.8);
+
+      // --- Group 7: AI Service Fallback ---
+      const ai = window.aiService;
+      const curated = ai.getCuratedAffirmation();
+      assert('AIService: 기본 큐레이션 확언 로드 성공', curated && typeof curated.affirmation === 'string' && curated.affirmation.length > 5);
+
+      const curatedThemed = ai.getCuratedAffirmation('불안 해소');
+      assert('AIService: 테마 필터링 큐레이션 확언 로드 성공', curatedThemed && curatedThemed.theme.includes('불안 해소'));
+
+      // --- Group 8: TTS Service Check ---
+      const tts = window.ttsService;
+      assert('TTSService: Web Speech API 지원 여부 체크 함수 동작', typeof tts.isSupported() === 'boolean');
+
+      // Summary
+      summaryContainer.innerHTML = `
+        <strong>테스트 결과:</strong> 
+        <span class="${failed === 0 ? 'pass' : 'fail'}">
+          ${passed} 통과 / ${failed} 실패 (성공률: ${Math.round((passed / (passed + failed)) * 100)}%)
+        </span>
+      `;
+    }
+
+    window.onload = runAllTests;
+  </script>
+</body>
+</html>

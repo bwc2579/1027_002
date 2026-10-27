@@ -1,0 +1,461 @@
+/* components.css - Specialized UI Components */
+
+/* 1. Video Player Container */
+.video-container {
+  position: relative;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #000;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+
+.video-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.playlist-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.select-input, .text-input {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.select-input:focus, .text-input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+}
+
+.custom-yt-row {
+  display: flex;
+  gap: 8px;
+}
+
+/* 2. Ambient Sound Mixer */
+.ambient-mixer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.ambient-channel {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.ambient-toggle {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: transparent;
+  color: var(--text-muted);
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.ambient-toggle:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.ambient-toggle.active {
+  background: rgba(20, 184, 166, 0.15);
+  border-color: var(--accent-teal);
+  color: var(--accent-teal);
+}
+
+.ambient-slider {
+  width: 100%;
+  accent-color: var(--accent-teal);
+  cursor: pointer;
+}
+
+.bell-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}
+
+/* 3. Meditation Timer */
+.timer-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  margin-top: 14px;
+  border: 1px solid var(--border-color);
+}
+
+.timer-digits {
+  font-size: 26px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-accent);
+}
+
+/* 4. Affirmation & Mindset Card */
+.affirmation-card {
+  background: linear-gradient(145deg, #1A2438 0%, #151D2C 100%);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.affirmation-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent-gold);
+}
+
+.affirmation-badge {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+  color: var(--text-accent);
+  margin-bottom: 8px;
+}
+
+.affirmation-quote {
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #FFF;
+  margin-bottom: 14px;
+}
+
+.meditation-script {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  padding: 14px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: var(--radius-sm);
+  margin-bottom: 16px;
+}
+
+.affirmation-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 14px;
+}
+
+.btn-tts.playing {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+}
+
+/* 5. Reflection Journal */
+.journal-editor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.mood-selector {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mood-chip {
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.mood-chip:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-main);
+}
+
+.mood-chip.selected {
+  background: rgba(245, 158, 11, 0.2);
+  border-color: var(--accent-gold);
+  color: var(--accent-gold);
+  font-weight: 600;
+}
+
+.journal-textarea {
+  width: 100%;
+  min-height: 160px;
+  padding: 16px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-family: inherit;
+  font-size: 15px;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.journal-textarea:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+}
+
+.journal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.autosave-badge {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* 6. Calendar & Search Grid */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.cal-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btn-cal-nav {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  cursor: pointer;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  text-align: center;
+}
+
+.cal-day-header {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: 4px 0;
+}
+
+.cal-day-empty {
+  min-height: 38px;
+}
+
+.cal-day-cell {
+  min-height: 44px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-secondary);
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.cal-day-cell:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.cal-day-cell.is-today {
+  border-color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.cal-day-cell.has-entry {
+  background: rgba(20, 184, 166, 0.15);
+  border-color: rgba(20, 184, 166, 0.4);
+}
+
+.day-mood-icon {
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* History Cards */
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.history-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.history-card:hover {
+  border-color: var(--accent-gold);
+  background: var(--bg-card-hover);
+}
+
+.history-card-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.history-date {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.history-mood-badge {
+  color: var(--text-accent);
+}
+
+.history-affirmation {
+  font-size: 12px;
+  font-style: italic;
+  color: var(--text-accent);
+  margin-bottom: 4px;
+}
+
+.history-snippet {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+/* Modals */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 520px;
+  padding: 28px;
+  box-shadow: var(--shadow-lg);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.modal-close:hover {
+  color: var(--text-main);
+}
+
+.settings-field {
+  margin-bottom: 18px;
+}
+
+.settings-field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+
+.field-help {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.backup-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}

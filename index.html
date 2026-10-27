@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>모닝 마인드셋 & 명상 저널 (Morning Mindset)</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="logo-area">
+        <span class="logo-icon">🌿</span>
+        <div>
+          <h1>Morning Mindset</h1>
+          <p class="subtitle" id="current-date">2026년 10월 27일 화요일</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <div class="streak-badge" title="연속으로 아침 루틴을 완료한 일수">
+          <span>🔥</span> <span id="streak-count">0일</span> 연속 달성
+        </div>
+        <button id="btn-open-settings" class="btn btn-icon" title="설정 및 데이터 관리">⚙️ 설정</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="app-main">
+    <div class="content-grid">
+      
+      <!-- Left Column: Priming & Meditation -->
+      <section class="left-section">
+        
+        <!-- 1. AI Daily Affirmation & Script Card -->
+        <div class="card affirmation-card">
+          <div class="card-header">
+            <span class="affirmation-badge" id="affirmation-theme">오늘의 활력 메시지</span>
+            <button id="btn-refresh-ai" class="btn btn-icon" title="새로운 활력 메시지 생성">🔄 새로고침</button>
+          </div>
+          <div class="affirmation-quote" id="affirmation-text">
+            "오늘 하루는 나에게 주어진 새로운 백지입니다. 어제의 후회는 내려놓고, 지금 이 순간 가장 나다운 한 줄을 적어갑니다."
+          </div>
+          <div class="meditation-script" id="meditation-script">
+            천천히 숨을 깊게 들이마십니다. 가슴 가득 시원한 공기가 차오르는 것을 느껴보세요. 그리고 천천히 내쉽니다. 오늘 하루 내게 닥쳐올 수많은 일들보다, 내 안의 평온이 언제나 더 큽니다.
+          </div>
+          <div class="affirmation-actions">
+            <button id="btn-play-tts" class="btn btn-secondary btn-tts">
+              🔊 음성 낭독 (차분한 보이스)
+            </button>
+            <span class="field-help">매일 아침 1분 마인드셋 가이드</span>
+          </div>
+        </div>
+
+        <!-- 2. Morning Meditation Music (YouTube & Mixer) -->
+        <div class="card" style="margin-top: 24px;">
+          <div class="card-header">
+            <h2>🎵 아침 명상 음악</h2>
+            <div class="timer-controls-inline">
+              <select id="timer-select" class="select-input" style="width: auto; padding: 6px 10px;">
+                <option value="3">3분 타이머</option>
+                <option value="5" selected>5분 타이머</option>
+                <option value="10">10분 타이머</option>
+              </select>
+              <button id="btn-start-timer" class="btn btn-primary" style="padding: 6px 14px;">타이머 시작</button>
+            </div>
+          </div>
+
+          <!-- YouTube Embed Container -->
+          <div id="yt-container"></div>
+
+          <!-- Playlist Selector & Custom URL -->
+          <div class="playlist-controls">
+            <select id="playlist-select" class="select-input"></select>
+            <div class="custom-yt-row">
+              <input type="text" id="custom-yt-url" class="text-input" placeholder="원하는 유튜브 링크나 영상 ID를 붙여넣으세요">
+              <button id="btn-load-custom-yt" class="btn btn-secondary" style="white-space: nowrap;">영상 재생</button>
+            </div>
+          </div>
+
+          <!-- Synthetic Ambient Mixer (Rain, Ocean, Bell) -->
+          <div style="margin-top: 20px;">
+            <div class="card-header" style="margin-bottom: 8px;">
+              <h3 style="font-size: 15px; color: var(--text-accent);">🍃 앰비언트 사운드 믹서 (100% 오프라인 내장)</h3>
+              <button id="btn-play-bell" class="btn btn-icon" title="싱잉볼 징 소리 재생">🔔 명상 종</button>
+            </div>
+            
+            <div class="ambient-mixer-grid">
+              <div class="ambient-channel">
+                <button class="ambient-toggle" data-type="rain">🌧️ 빗소리</button>
+                <input type="range" class="ambient-slider" data-type="rain" min="0" max="1" step="0.05" value="0.4">
+              </div>
+              <div class="ambient-channel">
+                <button class="ambient-toggle" data-type="ocean">🌊 파도 소리</button>
+                <input type="range" class="ambient-slider" data-type="ocean" min="0" max="1" step="0.05" value="0.4">
+              </div>
+              <div class="ambient-channel">
+                <button class="ambient-toggle" data-type="binaural">🧘 432Hz 주파수</button>
+                <input type="range" class="ambient-slider" data-type="binaural" min="0" max="1" step="0.05" value="0.3">
+              </div>
+            </div>
+
+            <!-- Timer Countdown Display -->
+            <div class="timer-container">
+              <div>
+                <span style="font-size: 13px; color: var(--text-muted);">남은 명상 시간</span>
+                <div class="timer-digits" id="timer-display">05:00</div>
+              </div>
+              <span style="font-size: 13px; color: var(--text-muted);">종료 시 힐링 종소리가 울립니다 🔔</span>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <!-- Right Column: Reflection Journal & Calendar History -->
+      <section class="right-section">
+
+        <!-- 1. Mindset Journal Editor -->
+        <div class="card">
+          <div class="card-header">
+            <h2 id="journal-date-label">✍️ 오늘의 마음가짐</h2>
+            <span class="autosave-badge" id="autosave-indicator">자동 저장 준비됨</span>
+          </div>
+
+          <div class="journal-editor-container">
+            <!-- Mood Chips -->
+            <div>
+              <span style="font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 8px;">지금 마음에 가장 가까운 느낌:</span>
+              <div class="mood-selector">
+                <span class="mood-chip selected" data-mood="평온함">🌿 평온함</span>
+                <span class="mood-chip" data-mood="활기참">☀️ 활기참</span>
+                <span class="mood-chip" data-mood="설렘/희망">✨ 설렘/희망</span>
+                <span class="mood-chip" data-mood="차분함">🌊 차분함</span>
+                <span class="mood-chip" data-mood="불안해소">🕊️ 불안해소</span>
+                <span class="mood-chip" data-mood="감사함">🙏 감사함</span>
+              </div>
+            </div>
+
+            <!-- Reflection Editor -->
+            <textarea 
+              id="journal-content" 
+              class="journal-textarea" 
+              placeholder="명상 후 머릿속에 떠오른 생각, 오늘 하루 가장 감사한 일, 또는 꼭 지키고 싶은 나만의 다짐을 적어보세요... (타이핑 시 자동 임시저장됩니다)"></textarea>
+
+            <div class="journal-footer">
+              <span style="font-size: 12px; color: var(--text-muted);">작성된 내용은 브라우저에 안전하게 보관됩니다.</span>
+              <button id="btn-save-journal" class="btn btn-primary">오늘의 마음가짐 저장</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Calendar Timeline & Date Search -->
+        <div class="card" style="margin-top: 24px;">
+          <div class="card-header">
+            <h2>📅 지난 기록 및 날짜별 검색</h2>
+            <div style="font-size: 13px; color: var(--text-muted);">
+              총 기록: <strong id="total-entries" style="color: var(--text-accent);">0회</strong> | 최장 연속: <strong id="longest-streak" style="color: var(--text-accent);">0일</strong>
+            </div>
+          </div>
+
+          <!-- Calendar View -->
+          <div id="calendar-container"></div>
+
+          <!-- Search Filter -->
+          <div style="margin-top: 18px;">
+            <input type="text" id="history-search" class="text-input" placeholder="🔍 키워드로 지난 일기 검색 (예: 감사, 출근, 집중...)">
+            <div id="history-list-container"></div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Settings & Backup Modal -->
+  <div id="settings-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>⚙️ 설정 및 데이터 관리</h3>
+        <button id="btn-close-settings" class="modal-close">&times;</button>
+      </div>
+
+      <div class="settings-field">
+        <label for="gemini-api-key">Google Gemini API Key (선택 사항)</label>
+        <input type="password" id="gemini-api-key" class="text-input" placeholder="AI 맞춤 생성을 원할 때 입력 (미입력 시 고품질 내장 글 제공)">
+        <p class="field-help">API 키는 브라우저 로컬 스토리지에만 저장되며 외부 서버로 전송되지 않습니다.</p>
+      </div>
+
+      <div class="settings-field" style="border-top: 1px solid var(--border-color); padding-top: 16px;">
+        <label>데이터 백업 및 복원 (JSON)</label>
+        <p class="field-help">작성한 모든 마음가짐 일기와 설정을 JSON 파일로 백업하거나 복원할 수 있습니다.</p>
+        <div class="backup-actions">
+          <button id="btn-export-data" class="btn btn-secondary">💾 데이터 내보내기</button>
+          <button id="btn-import-data" class="btn btn-secondary">📥 데이터 불러오기</button>
+          <input type="file" id="import-file-input" accept=".json" style="display: none;">
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; margin-top: 24px;">
+        <button id="btn-save-settings" class="btn btn-primary">설정 저장</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- History Detail Modal -->
+  <div id="history-detail-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="detail-date">날짜별 기록</h3>
+        <button id="btn-close-detail" class="modal-close">&times;</button>
+      </div>
+      <div id="detail-mood" style="color: var(--text-accent); font-weight: 600; margin-bottom: 8px;"></div>
+      <div id="detail-affirmation" style="font-style: italic; color: var(--text-muted); margin-bottom: 14px;"></div>
+      <div id="detail-content" style="white-space: pre-wrap; line-height: 1.7; background: rgba(0,0,0,0.2); padding: 14px; border-radius: var(--radius-sm); margin-bottom: 20px;"></div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button id="btn-load-to-editor" class="btn btn-secondary">이 날짜 수정하기</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/audio-mixer.js"></script>
+  <script src="js/youtube-player.js"></script>
+  <script src="js/ai-service.js"></script>
+  <script src="js/tts-service.js"></script>
+  <script src="js/calendar-insights.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
