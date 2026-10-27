@@ -1,4 +1,4 @@
-/* components.css - Specialized UI Components */
+/* components.css - Specialized UI Components (Clean White Theme) */
 
 /* 1. Video Player Container */
 .video-container {
@@ -30,17 +30,19 @@
 .select-input, .text-input {
   width: 100%;
   padding: 10px 14px;
-  background: var(--bg-secondary);
+  background: #FFFFFF;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   color: var(--text-main);
   font-family: inherit;
   font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .select-input:focus, .text-input:focus {
   outline: none;
   border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
 .custom-yt-row {
@@ -57,7 +59,7 @@
 }
 
 .ambient-channel {
-  background: var(--bg-secondary);
+  background: #F8FAFC;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   padding: 12px;
@@ -72,8 +74,8 @@
   padding: 8px 10px;
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-color);
-  background: transparent;
-  color: var(--text-muted);
+  background: #FFFFFF;
+  color: #475569;
   font-weight: 600;
   cursor: pointer;
   display: flex;
@@ -84,11 +86,12 @@
 }
 
 .ambient-toggle:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: #F1F5F9;
+  color: var(--text-main);
 }
 
 .ambient-toggle.active {
-  background: rgba(20, 184, 166, 0.15);
+  background: rgba(13, 148, 136, 0.12);
   border-color: var(--accent-teal);
   color: var(--accent-teal);
 }
@@ -112,7 +115,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(0, 0, 0, 0.2);
+  background: #F1F5F9;
   padding: 12px 18px;
   border-radius: var(--radius-md);
   margin-top: 14px;
@@ -123,15 +126,16 @@
   font-size: 26px;
   font-weight: 700;
   font-variant-numeric: tabular-nums;
-  color: var(--text-accent);
+  color: #B45309;
 }
 
-/* 4. Affirmation & Mindset Card */
+/* 4. Affirmation & Mindset Card (Warm Sunrise Theme) */
 .affirmation-card {
-  background: linear-gradient(145deg, #1A2438 0%, #151D2C 100%);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: linear-gradient(145deg, #FFFDF5 0%, #FEF9C3 100%);
+  border: 1px solid #FDE68A;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.1);
 }
 
 .affirmation-card::before {
@@ -149,24 +153,25 @@
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-weight: 700;
-  color: var(--text-accent);
+  color: #B45309;
   margin-bottom: 8px;
 }
 
 .affirmation-quote {
   font-size: 19px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.5;
-  color: #FFF;
+  color: #1E293B;
   margin-bottom: 14px;
 }
 
 .meditation-script {
   font-size: 15px;
-  color: var(--text-muted);
+  color: #475569;
   line-height: 1.7;
   padding: 14px;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(245, 158, 11, 0.2);
   border-radius: var(--radius-sm);
   margin-bottom: 16px;
 }
@@ -175,14 +180,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid rgba(245, 158, 11, 0.2);
   padding-top: 14px;
 }
 
 .btn-tts.playing {
-  background: rgba(245, 158, 11, 0.2);
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
+  background: #FDE68A;
+  border-color: #D97706;
+  color: #B45309;
 }
 
 /* 5. Reflection Journal */
@@ -201,9 +206,9 @@
 .mood-chip {
   padding: 6px 14px;
   border-radius: var(--radius-full);
-  background: var(--bg-secondary);
+  background: #F1F5F9;
   border: 1px solid var(--border-color);
-  color: var(--text-muted);
+  color: #475569;
   font-size: 13px;
   cursor: pointer;
   transition: all 0.2s ease;
@@ -211,22 +216,22 @@
 }
 
 .mood-chip:hover {
-  background: var(--bg-card-hover);
-  color: var(--text-main);
+  background: #E2E8F0;
+  color: #0F172A;
 }
 
 .mood-chip.selected {
-  background: rgba(245, 158, 11, 0.2);
-  border-color: var(--accent-gold);
-  color: var(--accent-gold);
-  font-weight: 600;
+  background: #FEF3C7;
+  border-color: #F59E0B;
+  color: #92400E;
+  font-weight: 700;
 }
 
 .journal-textarea {
   width: 100%;
   min-height: 160px;
   padding: 16px;
-  background: var(--bg-secondary);
+  background: #FFFFFF;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-md);
   color: var(--text-main);
@@ -234,11 +239,13 @@
   font-size: 15px;
   line-height: 1.7;
   resize: vertical;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .journal-textarea:focus {
   outline: none;
   border-color: var(--accent-gold);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
 }
 
 .journal-footer {
@@ -262,16 +269,22 @@
 
 .cal-title {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #0F172A;
 }
 
 .btn-cal-nav {
-  background: var(--bg-secondary);
+  background: #FFFFFF;
   border: 1px solid var(--border-color);
-  color: var(--text-main);
+  color: #475569;
   border-radius: var(--radius-sm);
   padding: 4px 10px;
   cursor: pointer;
+}
+
+.btn-cal-nav:hover {
+  background: #F1F5F9;
+  color: #0F172A;
 }
 
 .calendar-grid {
@@ -283,8 +296,8 @@
 
 .cal-day-header {
   font-size: 12px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
+  color: #64748B;
   padding: 4px 0;
 }
 
@@ -298,28 +311,33 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--bg-secondary);
-  border: 1px solid transparent;
+  background: #F8FAFC;
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   font-size: 13px;
+  font-weight: 500;
+  color: #334155;
   cursor: pointer;
   transition: all 0.2s ease;
   position: relative;
 }
 
 .cal-day-cell:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #EDF2F7;
+  border-color: #CBD5E1;
 }
 
 .cal-day-cell.is-today {
-  border-color: var(--accent-gold);
+  border-color: #D97706;
+  border-width: 2px;
   font-weight: 700;
+  color: #B45309;
 }
 
 .cal-day-cell.has-entry {
-  background: rgba(20, 184, 166, 0.15);
-  border-color: rgba(20, 184, 166, 0.4);
+  background: #ECFDF5;
+  border-color: #6EE7B7;
+  color: #065F46;
 }
 
 .day-mood-icon {
@@ -338,7 +356,7 @@
 }
 
 .history-card {
-  background: var(--bg-secondary);
+  background: #F8FAFC;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-sm);
   padding: 12px;
@@ -348,7 +366,8 @@
 
 .history-card:hover {
   border-color: var(--accent-gold);
-  background: var(--bg-card-hover);
+  background: #FFFFFF;
+  box-shadow: var(--shadow-sm);
 }
 
 .history-card-header {
@@ -359,24 +378,25 @@
 }
 
 .history-date {
-  font-weight: 600;
-  color: var(--text-main);
+  font-weight: 700;
+  color: #0F172A;
 }
 
 .history-mood-badge {
-  color: var(--text-accent);
+  color: #B45309;
+  font-weight: 600;
 }
 
 .history-affirmation {
   font-size: 12px;
   font-style: italic;
-  color: var(--text-accent);
+  color: #B45309;
   margin-bottom: 4px;
 }
 
 .history-snippet {
   font-size: 13px;
-  color: var(--text-muted);
+  color: #64748B;
   line-height: 1.4;
 }
 
@@ -388,7 +408,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(15, 23, 42, 0.5);
   backdrop-filter: blur(6px);
   z-index: 1000;
   align-items: center;
@@ -401,15 +421,16 @@
 }
 
 .modal-content {
-  background: var(--bg-card);
+  background: #FFFFFF;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   width: 100%;
   max-width: 520px;
   padding: 28px;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   max-height: 90vh;
   overflow-y: auto;
+  color: var(--text-main);
 }
 
 .modal-header {
@@ -422,18 +443,19 @@
 .modal-header h3 {
   font-size: 18px;
   font-weight: 700;
+  color: #0F172A;
 }
 
 .modal-close {
   background: transparent;
   border: none;
   font-size: 22px;
-  color: var(--text-muted);
+  color: #94A3B8;
   cursor: pointer;
 }
 
 .modal-close:hover {
-  color: var(--text-main);
+  color: #0F172A;
 }
 
 .settings-field {
@@ -443,14 +465,14 @@
 .settings-field label {
   display: block;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-weight: 700;
+  color: #334155;
   margin-bottom: 6px;
 }
 
 .field-help {
   font-size: 12px;
-  color: var(--text-muted);
+  color: #64748B;
   margin-top: 4px;
 }
 

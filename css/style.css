@@ -1,31 +1,31 @@
-/* style.css - Design System for Morning Mindset & Meditation Journal */
+/* style.css - Clean, Warm Morning White Design System */
 
 :root {
-  --bg-primary: #0F172A;
-  --bg-secondary: #1E293B;
-  --bg-card: #182234;
-  --bg-card-hover: #223049;
-  --border-color: rgba(255, 255, 255, 0.08);
-  --border-active: #F59E0B;
+  --bg-primary: #F8FAFC;
+  --bg-secondary: #F1F5F9;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --border-color: #E2E8F0;
+  --border-active: #D97706;
   
-  --text-main: #F8FAFC;
-  --text-muted: #94A3B8;
-  --text-accent: #FBBF24;
+  --text-main: #0F172A;
+  --text-muted: #64748B;
+  --text-accent: #D97706;
   
   --primary-color: #D97706;
   --primary-hover: #B45309;
   --accent-gold: #F59E0B;
-  --accent-teal: #14B8A6;
-  --accent-indigo: #6366F1;
+  --accent-teal: #0D9488;
+  --accent-indigo: #4F46E5;
   
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 20px;
   --radius-full: 9999px;
   
-  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
-  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
 
   --font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
@@ -38,7 +38,7 @@
 
 body {
   font-family: var(--font-family);
-  background: radial-gradient(circle at 50% 0%, #1E293B 0%, var(--bg-primary) 70%);
+  background: #F8FAFC;
   color: var(--text-main);
   min-height: 100vh;
   line-height: 1.6;
@@ -49,11 +49,12 @@ body {
 /* App Header */
 .app-header {
   border-bottom: 1px solid var(--border-color);
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(12px);
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
 .header-container {
@@ -73,19 +74,17 @@ body {
 
 .logo-icon {
   font-size: 28px;
-  background: rgba(245, 158, 11, 0.15);
+  background: rgba(245, 158, 11, 0.12);
   padding: 8px;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  border: 1px solid rgba(245, 158, 11, 0.25);
 }
 
 .logo-area h1 {
   font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.5px;
-  background: linear-gradient(135deg, #FFF 0%, #FBBF24 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #0F172A;
 }
 
 .subtitle {
@@ -103,13 +102,13 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(245, 158, 11, 0.12);
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
   padding: 6px 14px;
   border-radius: var(--radius-full);
   font-size: 14px;
-  font-weight: 600;
-  color: var(--text-accent);
+  font-weight: 700;
+  color: #B45309;
 }
 
 /* Layout */
@@ -138,11 +137,12 @@ body {
   border-radius: var(--radius-lg);
   padding: 24px;
   box-shadow: var(--shadow-md);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
-  border-color: rgba(245, 158, 11, 0.2);
+  border-color: #CBD5E1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
 .card-header {
@@ -154,7 +154,8 @@ body {
 
 .card-header h2 {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 700;
+  color: #0F172A;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -177,29 +178,30 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--accent-gold) 0%, var(--primary-color) 100%);
-  color: #0F172A;
-  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.3);
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+  color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(217, 119, 6, 0.25);
 }
 
 .btn-primary:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.05);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35);
 }
 
 .btn-secondary {
-  background: var(--bg-secondary);
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
+  background: #F1F5F9;
+  color: #1E293B;
+  border: 1px solid #CBD5E1;
 }
 
 .btn-secondary:hover {
-  background: var(--bg-card-hover);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: #E2E8F0;
+  color: #0F172A;
 }
 
 .btn-icon {
-  background: transparent;
+  background: #FFFFFF;
   color: var(--text-muted);
   border: 1px solid var(--border-color);
   padding: 8px 12px;
@@ -208,5 +210,6 @@ body {
 
 .btn-icon:hover {
   color: var(--text-main);
-  background: var(--bg-secondary);
+  background: #F1F5F9;
+  border-color: #CBD5E1;
 }
